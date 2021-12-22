@@ -1,6 +1,7 @@
 package V2;
 
 import java.util.ArrayList;
+
 public interface TournamentFormat
 {
     public boolean setElimination();

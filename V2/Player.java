@@ -1,24 +1,29 @@
 package V2;
 
-public class Player {
-
-    public Player(String name) {
-        this.playerName = name;
+public class Player
+{
+    public Player(String aName)
+    {
+        playerName = aName;
     }
 
-    public String name() {
+    public String name()
+    {
         return playerName;
     }
 
-    public void rename(String newName) {
-        this.playerName = newName;
+    public void rename(String newName)
+    {
+        playerName = newName;
     }
 
-    public void rescore(int value) {
-        this.seed = value;
+    public void rescore(int value)
+    {
+        seed = value;
     }
 
-    public int score() {
+    public int score()
+    {
         return seed;
     }
 

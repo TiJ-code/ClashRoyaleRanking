@@ -20,7 +20,7 @@ public class Tournament
         numberOfRounds = 0;
         playerTree = new ArrayList<Player>();
         roundList = new ArrayList<Round>();
-        formatList = new TournamentFormat[] {new SingleElim()};
+        formatList = new TournamentFormat[] { new SingleElim() };
         format = formatList[0];
         seeded = false;
         elimination = true;
@@ -55,6 +55,7 @@ public class Tournament
             public void stateChanged(ChangeEvent event)
             {
                 frame.dispose();
+                System.exit(0);
             }
         };
 
@@ -72,7 +73,6 @@ public class Tournament
 
         UI.createFormatMenu(frame);
 
-
         ChangeListener backListener = new ChangeListener()
         {
             public void stateChanged(ChangeEvent event)
@@ -85,7 +85,7 @@ public class Tournament
         {
             public void stateChanged(ChangeEvent event)
             {
-                if (elimination)
+                if (elimination == true)
                 {
                     instantiatePlayerEntryMenu(false);
                 }
@@ -118,6 +118,7 @@ public class Tournament
                 {
                     System.out.println(elimination);
                     format = formatList[formatNum];
+
                     elimination = format.setElimination();
 
                     System.out.println(formatNum);
@@ -135,6 +136,7 @@ public class Tournament
         frame.getContentPane().removeAll();
 
         UI.createOptionsMenu(frame);
+
         IM.updateWindow(frame);
 
         ChangeListener backListener = new ChangeListener()
@@ -175,13 +177,16 @@ public class Tournament
         frame.getContentPane().removeAll();
 
         UI.createPlayerEntryMenu(frame, seeded);
+
         IM.updateWindow(frame);
+
 
         ChangeListener backListener = new ChangeListener()
         {
             public void stateChanged(ChangeEvent event)
             {
                 if (elimination)
+
                     instantiateFormatMenu();
                 else
                     instantiateOptionsMenu();
@@ -192,7 +197,6 @@ public class Tournament
         {
             public void stateChanged(ChangeEvent event)
             {
-
                 generateTournament();
 
                 UI.clearListeners();
@@ -215,49 +219,42 @@ public class Tournament
         UI.addChangeListener(exitListener);
     }
 
-    public static void instantiateRoundMenu(int roundNumber)
-    {
+    public static void instantiateRoundMenu(int roundNumber) {
         UI.clearListeners();
         frame.getContentPane().removeAll();
 
-        int beginning = ((int) Math.pow(2,numberOfRounds+1))-2;
+        int beginning = ((int) Math.pow(2, numberOfRounds + 1)) - 2;
         for (int s = 1; s < roundNumber; s++)
-            beginning = (beginning / 2) -1;
+            beginning = (beginning / 2) - 1;
         beginning++;
         int end = beginning / 2 - 1;
 
-        for (int y = 0; y < numberOfRounds; y++)
-        {
-            final int index = Integer.valueOf(y+1);
-            ChangeListener roundListener = new ChangeListener()
-            {
-                public void stateChanged(ChangeEvent event)
-                {
+        for (int y = 0; y < numberOfRounds; y++) {
+            final int index = Integer.valueOf(y + 1);
+            ChangeListener roundListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent event) {
                     instantiateRoundMenu(index);
                 }
             };
             UI.addChangeListener(roundListener);
         }
 
-        ChangeListener resultsListener = new ChangeListener()
-        {
-            public void stateChanged(ChangeEvent event)
-            {
+        ChangeListener resultsListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
                 instantiateResultsMenu(numberOfRounds);
-            };
+            }
+
+            ;
 
 
         };
 
         UI.addChangeListener(resultsListener);
 
-        for (int i = 0; i < playerTree.size(); i++)
-        {
+        for (int i = 0; i < playerTree.size(); i++) {
             final int index = Integer.valueOf(i);
-            ChangeListener playerListener = new ChangeListener()
-            {
-                public void stateChanged(ChangeEvent event)
-                {
+            ChangeListener playerListener = new ChangeListener() {
+                public void stateChanged(ChangeEvent event) {
                     format.advancePlayer(index, playerTree);
                 }
             };
@@ -309,12 +306,10 @@ public class Tournament
 
     public static void generateTournament()
     {
-
         String players = UI.reportUserInput(frame).get(0);
 
-
         String seedList = "";
-        if (seeded)
+        if (seeded == true)
         {
             seedList = UI.reportUserInput(frame).get(1);
         }
@@ -333,11 +328,9 @@ public class Tournament
 
     public static void main(String[] args)
     {
-        // Initialize
         InterfaceManager tourIM = new InterfaceManager();
         UserInterface tourUI = new UserInterface();
 
-        // Create mainFrame
         JFrame mainFrame = new JFrame();
         mainFrame.setMinimumSize(new Dimension(300,300));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -345,6 +338,7 @@ public class Tournament
         Tournament tournament = new Tournament(mainFrame, tourIM, tourUI);
 
         tournament.instantiateMainMenu();
+
     }
 
     private static JFrame frame;

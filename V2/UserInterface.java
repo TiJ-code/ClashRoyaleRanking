@@ -1,5 +1,4 @@
 package V2;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,12 +7,11 @@ import java.util.ArrayList;
 
 public class UserInterface
 {
-
     public UserInterface()
     {
-        listeners = new ArrayList<ChangeListener>();
-        userInputFields = new ArrayList<JTextArea>();
-        userInput = new ArrayList<String>();
+        listeners = new ArrayList<>();
+        userInputFields = new ArrayList<>();
+        userInput = new ArrayList<>();
     }
     public void clearListeners()
     {
@@ -44,7 +42,6 @@ public class UserInterface
         });
     }
 
-
     public static ArrayList<String> reportUserInput(JFrame frame)
     {
         for (JTextArea userInputField : userInputFields) userInput.add(userInputField.getText());
@@ -57,9 +54,9 @@ public class UserInterface
         JPanel navigationPanel = new JPanel();
         navigationPanel.setLayout(new FlowLayout());
 
-        JButton backButton = new JButton("Back");
-        JButton nextButton = new JButton("Next");
-        JButton quitButton = new JButton("Quit");
+        JButton backButton = new JButton("Zurück");
+        JButton nextButton = new JButton("Weiter");
+        JButton quitButton = new JButton("Beenden");
 
         addTournamentListener(backButton, 0);
         addTournamentListener(nextButton, 1);
@@ -75,13 +72,9 @@ public class UserInterface
 
     public static void createMainMenu(final JFrame frame)
     {
-
         JButton newButton = new JButton("Neu");
-        newButton.setFocusPainted(false);
-        JButton loadButton = new JButton("Laden");
-        loadButton.setFocusPainted(false);
+        JButton loadButton = new JButton("Laden [WIP]");
         JButton exitButton = new JButton("Beenden");
-        exitButton.setFocusPainted(false);
 
         frame.setLayout(new GridLayout(3,1));
 
@@ -101,7 +94,7 @@ public class UserInterface
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.add(new JLabel("Select format:"),BorderLayout.WEST);
+        titlePanel.add(new JLabel("Format Wählen:"),BorderLayout.WEST);
 
         JPanel navigationPanel = createNavigationPanel();
 
@@ -109,11 +102,11 @@ public class UserInterface
         formatPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        JRadioButton SEButton = new JRadioButton();
-        JRadioButton DEButton = new JRadioButton();
-        JRadioButton MMButton = new JRadioButton();
-        JRadioButton SSButton = new JRadioButton();
-        JRadioButton RRButton = new JRadioButton();
+        // JRadioButton SEButton = new JRadioButton();
+        // JRadioButton DEButton = new JRadioButton();
+        // JRadioButton MMButton = new JRadioButton();
+        // JRadioButton SSButton = new JRadioButton();
+        // JRadioButton RRButton = new JRadioButton();
 
         ButtonGroup formatGroup = new ButtonGroup();
         c.gridx = 0;
@@ -130,23 +123,21 @@ public class UserInterface
             c.gridy = y;
         }
 
-
         c.gridx = 1;
         c.gridy = 0;
-        formatPanel.add(new JLabel("Elemination (Single)"),c);
+        formatPanel.add(new JLabel("1o1"),c);
         c.gridx = 1;
         c.gridy = 1;
-        formatPanel.add(new JLabel("McMahon [WIP]"),c);
+        formatPanel.add(new JLabel("McMahon      [WIP]"),c);
         c.gridx = 1;
         c.gridy = 2;
-        formatPanel.add(new JLabel("Elemination (Double) [WIP]"),c);
+        formatPanel.add(new JLabel("2o2                  [WIP]"),c);
         c.gridx = 1;
         c.gridy = 3;
-        formatPanel.add(new JLabel("Swiss [WIP]"),c);
+        formatPanel.add(new JLabel("Swiss             [WIP]"),c);
         c.gridx = 1;
         c.gridy = 4;
-        formatPanel.add(new JLabel("Round-Robin [WIP]"),c);
-
+        formatPanel.add(new JLabel("Round-robin  [WIP]"),c);
 
         JPanel seedPanel = new JPanel();
         seedPanel.setLayout(new BorderLayout());
@@ -164,7 +155,7 @@ public class UserInterface
         YNGroup.add(YButton);
         YNGroup.add(NButton);
 
-        seedPanel.add(new JLabel("Vorgewertet?"), BorderLayout.NORTH);
+        seedPanel.add(new JLabel("Voreingestellte Werte? [WIP]"), BorderLayout.NORTH);
         seedPanel.add(Box.createRigidArea(new Dimension(0,10)),BorderLayout.CENTER);
         seedPanel.add(YNPanel, BorderLayout.SOUTH);
 
@@ -177,7 +168,6 @@ public class UserInterface
         mainPanel.add(navigationPanel);
 
         frame.add(mainPanel);
-
     }
 
     public static void createOptionsMenu(JFrame frame)
@@ -187,7 +177,7 @@ public class UserInterface
         JPanel roundNumPanel = new JPanel();
         roundNumPanel.setLayout(new BoxLayout(roundNumPanel, BoxLayout.X_AXIS));
 
-        roundNumPanel.add(new JLabel("Setze die Anzahl der Runden und wähle TieBreaker Methode: "));
+        roundNumPanel.add(new JLabel("Schreibe die Anzahl der Runden und wähle eine TieBreaker Methode: "));
         JTextArea numberField = new JTextArea("5");
         numberField.setSize(1,1);
         userInputFields.add(numberField);
@@ -195,8 +185,8 @@ public class UserInterface
         JPanel tiePanel = new JPanel();
         tiePanel.setLayout(new BoxLayout(tiePanel, BoxLayout.X_AXIS));
 
-        JRadioButton H2HButton = new JRadioButton("Kopf-An-Kopf",true);
-        JRadioButton RecButton = new JRadioButton("Gegner Rekorde");
+        JRadioButton H2HButton = new JRadioButton("Kopf an Kopf",true);
+        JRadioButton RecButton = new JRadioButton("RekordGame [WIP]");
 
         tiePanel.add(H2HButton);
         tiePanel.add(RecButton);
@@ -222,13 +212,12 @@ public class UserInterface
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.X_AXIS));
-        JTextArea playerField = new JTextArea("Trage hier die Spielernamen ein (Lösche diese Zeile)", 20,50);
+        JTextArea playerField = new JTextArea("Schreibe hier alle Teilnehmenden Spieler hinein (Lösche diese Zeile).", 20,50);
         userInputFields.add(playerField);
-
 
         if (seed)
         {
-            JTextArea seedField = new JTextArea("Wertungen hier Eintragen.", 20, 1);
+            JTextArea seedField = new JTextArea("[WIP] Werte setzen.", 20, 1);
             userInputFields.add(seedField);
             textPanel.add(seedField);
             textPanel.add(Box.createRigidArea(new Dimension(20,10)));
@@ -240,7 +229,6 @@ public class UserInterface
         mainPanel.add(navigationPanel);
 
         frame.add(mainPanel);
-
     }
 
     public static void createRoundMenu(JFrame frame, int numberOfRounds, int start, int end, ArrayList<Player> players, int roundNumber) {
@@ -254,21 +242,20 @@ public class UserInterface
 
         for (int i = 0; i < players.size(); i++)
         {
+
             JButton playerButton = new JButton(players.get(i).name());
             addTournamentListener(playerButton, i+numberOfRounds+1);
 
             if (i < start && i > end)
             {
+
                 pairingPanel.add(playerButton);
             }
         }
 
-
         mainPanel.add(roundPanel, BorderLayout.NORTH);
         mainPanel.add(pairingPanel, BorderLayout.CENTER);
         frame.add(mainPanel);
-
-
     }
 
     public static JPanel createRoundPanel(JFrame frame, int numberOfRounds, int roundNumber, int startIndex)
@@ -287,11 +274,11 @@ public class UserInterface
             if (i == roundNumber-1)
             {
                 boolean selectionState = true;
-                roundButton = new JToggleButton("Round " + roundName, selectionState);
+                roundButton = new JToggleButton("Runde " + roundName, selectionState);
             }
             else
             {
-                roundButton = new JToggleButton("Round " + roundName);
+                roundButton = new JToggleButton("Runde " + roundName);
             }
 
 
@@ -300,7 +287,7 @@ public class UserInterface
             addTournamentListener(roundButton, startIndex+i);
         }
 
-        JToggleButton resultsButton = new JToggleButton("Results");
+        JToggleButton resultsButton = new JToggleButton("Ergebnisse");
         roundGroup.add(resultsButton);
 
         addTournamentListener(resultsButton, startIndex+numberOfRounds);
@@ -334,4 +321,3 @@ public class UserInterface
     private static ArrayList<JTextArea> userInputFields;
     private static ArrayList<String> userInput;
 }
-	
